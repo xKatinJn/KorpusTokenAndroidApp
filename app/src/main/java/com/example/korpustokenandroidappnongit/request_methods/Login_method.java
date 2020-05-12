@@ -4,13 +4,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
+import android.util.AndroidRuntimeException;
 import android.util.Log;
+import android.widget.EditText;
 
 import com.example.korpustokenandroidappnongit.KorpusTokenAPI;
 import com.example.korpustokenandroidappnongit.LoginActivity;
 import com.example.korpustokenandroidappnongit.MainActivity;
+import com.example.korpustokenandroidappnongit.R;
 import com.example.korpustokenandroidappnongit.apijsontranslator.User_login_resp_post;
+import com.example.korpustokenandroidappnongit.scripts.UsefulScripts;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
 
@@ -56,22 +61,24 @@ public class Login_method extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String resp){
+    protected void onPostExecute(String resp) {
         if (resp != null) {
             try {
-                this.login =  new Gson().fromJson(resp, User_login_resp_post.class);
-                if (this.login.message == "Logged") {
+                this.login = new Gson().fromJson(resp, User_login_resp_post.class);
+                System.out.println(login.message);
+                if (this.login.message.equals("Logged")) {
                     SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(this.activity);
-                    final SharedPreferences.Editor editor = myPreferences.edit();
+                    SharedPreferences.Editor editor = myPreferences.edit();
                     editor.putString("TOKEN", login.token);
                     editor.commit();
-                    Intent intent = new Intent(this.activity, MainActivity.class);
-                    activity.startActivity(intent);
-                }else{
-                    // show error
+                    activity.startActivity(new Intent(this.activity, MainActivity.class));
+                } else if (this.login.message.equals("Login or password incorrect")) {
+                    activity.findViewById(R.id.login_edit).setBackgroundResource(R.drawable.rounded_edittext_top_error);
+                    activity.findViewById(R.id.password_edit).setBackgroundResource(R.drawable.rounded_edittext_bottom_error);
+                    UsefulScripts.MakeToastError(this.activity, "Логин или пароль введены неверно", "#FF0000", true);
                 }
-            }catch (IllegalStateException e){
-                Log.e("LOGIN POST", "500 ERROR");
+            }catch (Exception e){
+                throw e;
             }
         }
     }

@@ -1,22 +1,29 @@
 package com.example.korpustokenandroidappnongit.request_methods;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.korpustokenandroidappnongit.KorpusTokenAPI;
+import com.example.korpustokenandroidappnongit.MainActivity;
 import com.example.korpustokenandroidappnongit.R;
 import com.example.korpustokenandroidappnongit.RegistrationActivity;
 import com.example.korpustokenandroidappnongit.apijsontranslator.User_registration_resp_get;
 import com.example.korpustokenandroidappnongit.apijsontranslator.User_registration_resp_post;
+import com.example.korpustokenandroidappnongit.apijsontranslator.User_req_get;
+import com.example.korpustokenandroidappnongit.scripts.UsefulScripts;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -33,7 +40,7 @@ public class Registration_method extends AsyncTask<String, Void, String> {
     private String request_method;
     private String URL;
     private RegistrationActivity activity;
-    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+    public static final MediaType JSON = new KorpusTokenAPI().JSON;
 
     //GET
     public Registration_method(User_registration_resp_get resp,
@@ -115,6 +122,31 @@ public class Registration_method extends AsyncTask<String, Void, String> {
             }
         }else{
             this.resp_post = new Gson().fromJson(response, User_registration_resp_post.class);
+            if (!this.resp_post.validation_errors.isEmpty()){
+                boolean flag = false;
+                for (String error : this.resp_post.validation_errors){
+                    if (error.equals("email")){
+                        EditText email = (EditText) activity.findViewById(R.id.email_edit);
+                        UsefulScripts.MakeToastError(this.activity, "Почта уже используется", "#FF0000", true);
+                        email.setBackgroundResource(R.drawable.rounded_edittext_error);
+                        flag = true;
+                    }else if (error.equals("login")){
+                        EditText login = (EditText) activity.findViewById(R.id.login_edit);
+                        UsefulScripts.MakeToastError(this.activity, "Логин уже используется", "#FF0000", true);
+                        login.setBackgroundResource(R.drawable.rounded_edittext_error);
+                        flag = true;
+                    }
+                    if (flag){
+                        activity.findViewById(R.id.scroll_main).scrollTo(0, 0);
+                    }
+                }
+            }else{
+                SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(this.activity);
+                SharedPreferences.Editor editor = myPreferences.edit();
+                editor.putString("TOKEN", this.resp_post.token);
+                editor.commit();
+                activity.startActivity(new Intent(activity, MainActivity.class));
+            }
             System.out.println(this.resp_post.message);
         }
     }

@@ -11,9 +11,11 @@ public class User {
     public String sex;
     public String name;
     public String surname;
+    public String message;
 
     public User (String email, String login, String tg_nickname, String courses, String birthday,
-                 String education, String work_exp, String sex, String name, String surname){
+                 String education, String work_exp, String sex, String name, String surname,
+                 String message){
         this.email = email;
         this.login = login;
         this.tg_nickname = tg_nickname;
@@ -24,5 +26,6 @@ public class User {
         this.sex = sex;
         this.name = name;
         this.surname = surname;
+        this.message = message;
     }
 }

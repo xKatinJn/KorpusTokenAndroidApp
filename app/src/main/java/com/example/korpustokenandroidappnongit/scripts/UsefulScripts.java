@@ -28,8 +28,13 @@ public class UsefulScripts {
         return false;
     }
 
-    public static void MakeToastError(Context context, String message, String color) {
-        Toast toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+    public static void MakeToastError(Context context, String message, String color, Boolean length) {
+        Toast toast;
+        if (length) {
+            toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
+        }else{
+            toast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+        }
         TextView text = toast.getView().findViewById(android.R.id.message);
         text.setTextColor(Color.parseColor(color));
         toast.show();
@@ -63,7 +68,7 @@ public class UsefulScripts {
         return true;
     }
 
-    public static boolean RegistrationEmptyFieldValidation(List<EditText> fields) {
+    public static boolean EmptyFieldValidation(List<EditText> fields) {
         boolean flag = true;
 
         for (EditText field : fields){
@@ -94,7 +99,7 @@ public class UsefulScripts {
 
     public static boolean RegistrationPasswordValidation(EditText password, EditText password_repeat) {
         //IS EMPTY
-        if (!RegistrationEmptyFieldValidation(Arrays.asList(password, password_repeat))){
+        if (!EmptyFieldValidation(Arrays.asList(password, password_repeat))){
             password.setHint(R.string.password);
             password_repeat.setHint(R.string.password_repeat);
             return false;
@@ -122,7 +127,7 @@ public class UsefulScripts {
         if (!RegistrationEmailValidation(email)){
             flag = false;
         }
-        if (!RegistrationEmptyFieldValidation(fields)){
+        if (!EmptyFieldValidation(fields)){
             flag = false;
         }
         return flag;

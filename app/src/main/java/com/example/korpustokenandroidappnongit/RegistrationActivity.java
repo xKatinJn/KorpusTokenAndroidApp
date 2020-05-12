@@ -80,7 +80,8 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (UsefulScripts.isOnline(RegistrationActivity.this)){
                     if (UsefulScripts.RegistrationValidation(Arrays.asList(login, name, surname, tg_nickname), email, password, password_repeat)){
-                        String birthdate_str = birthdate.getDayOfMonth()+"-"+birthdate.getMonth()+"-"+birthdate.getYear();
+                        int month = birthdate.getMonth() + 1;
+                        String birthdate_str = birthdate.getDayOfMonth()+"-"+month+"-"+birthdate.getYear();
                         User_registration_req_post req = new User_registration_req_post(
                                 email.getText().toString(), login.getText().toString(),
                                 password.getText().toString(), tg_nickname.getText().toString(),
