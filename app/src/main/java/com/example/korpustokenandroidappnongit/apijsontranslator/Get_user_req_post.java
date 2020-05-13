@@ -2,11 +2,13 @@ package com.example.korpustokenandroidappnongit.apijsontranslator;
 
 import java.util.List;
 
-public class User_req_get {
+public class Get_user_req_post {
     public List<String> params;
+    public String token;
     public String message;
 
-    public User_req_get(List<String> params){
+    public Get_user_req_post(List<String> params, String token){
         this.params = params;
+        this.token = token;
     }
 }

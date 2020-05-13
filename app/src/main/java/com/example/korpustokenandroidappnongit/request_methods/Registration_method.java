@@ -11,19 +11,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.korpustokenandroidappnongit.KorpusTokenAPI;
 import com.example.korpustokenandroidappnongit.MainActivity;
 import com.example.korpustokenandroidappnongit.R;
 import com.example.korpustokenandroidappnongit.RegistrationActivity;
 import com.example.korpustokenandroidappnongit.apijsontranslator.User_registration_resp_get;
 import com.example.korpustokenandroidappnongit.apijsontranslator.User_registration_resp_post;
-import com.example.korpustokenandroidappnongit.apijsontranslator.User_req_get;
 import com.example.korpustokenandroidappnongit.scripts.UsefulScripts;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -145,6 +142,7 @@ public class Registration_method extends AsyncTask<String, Void, String> {
                 SharedPreferences.Editor editor = myPreferences.edit();
                 editor.putString("TOKEN", this.resp_post.token);
                 editor.commit();
+                activity.finishAffinity();
                 activity.startActivity(new Intent(activity, MainActivity.class));
             }
             System.out.println(this.resp_post.message);

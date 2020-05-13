@@ -196,10 +196,11 @@
             android:layout_width="351dp"
             android:layout_height="45dp"
             android:layout_centerHorizontal="true"
+            android:maxLines="4"
             android:layout_marginTop="15dp"
             android:layout_below="@id/team_linear_parent_layout"
             android:ems="10"
-            android:inputType="text"
+            android:inputType="textCapSentences|textMultiLine"
             android:hint="@string/education" />
 
         <EditText
@@ -209,10 +210,11 @@
             android:layout_width="351dp"
             android:layout_height="45dp"
             android:layout_centerHorizontal="true"
+            android:maxLines="4"
             android:layout_marginTop="15dp"
             android:layout_below="@id/education_edit"
             android:ems="10"
-            android:inputType="text"
+            android:inputType="textCapSentences|textMultiLine"
             android:hint="@string/courses" />
 
         <EditText
@@ -222,10 +224,11 @@
             android:layout_width="351dp"
             android:layout_height="45dp"
             android:layout_centerHorizontal="true"
+            android:maxLines="4"
             android:layout_marginTop="15dp"
             android:layout_below="@id/courses_edit"
             android:ems="10"
-            android:inputType="text"
+            android:inputType="textCapSentences|textMultiLine"
             android:hint="@string/work_exp" />
 
         <Button

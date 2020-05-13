@@ -4,18 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.util.AndroidRuntimeException;
 import android.util.Log;
-import android.widget.EditText;
 
-import com.example.korpustokenandroidappnongit.KorpusTokenAPI;
 import com.example.korpustokenandroidappnongit.LoginActivity;
 import com.example.korpustokenandroidappnongit.MainActivity;
 import com.example.korpustokenandroidappnongit.R;
 import com.example.korpustokenandroidappnongit.apijsontranslator.User_login_resp_post;
 import com.example.korpustokenandroidappnongit.scripts.UsefulScripts;
 import com.google.gson.Gson;
-import com.google.gson.JsonSyntaxException;
 
 import java.io.IOException;
 
@@ -71,6 +67,7 @@ public class Login_method extends AsyncTask<String, Void, String> {
                     SharedPreferences.Editor editor = myPreferences.edit();
                     editor.putString("TOKEN", login.token);
                     editor.commit();
+                    activity.finishAffinity();
                     activity.startActivity(new Intent(this.activity, MainActivity.class));
                 } else if (this.login.message.equals("Login or password incorrect")) {
                     activity.findViewById(R.id.login_edit).setBackgroundResource(R.drawable.rounded_edittext_top_error);

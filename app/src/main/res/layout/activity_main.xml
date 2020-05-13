@@ -23,45 +23,80 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/id_container_menu"
+        <ScrollView
+            android:id="@+id/scrollview_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/backgroundGray"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="45dp">
+            android:background="@color/backgroundGray">
 
-            <TextView
-                style="@style/TextMenu.Main"
-                android:id="@+id/nickname_textview"
-                android:background="@color/backgroundGray"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="xKatinJn"
-                android:layout_centerHorizontal="true"/>
-
-            <TextView
-                style="@style/TextMenu.Main"
-                android:id="@+id/namesurname_textview"
-                android:background="@color/backgroundGray"
-                android:textSize="16dp"
-                android:layout_below="@id/nickname_textview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="Иннокентиев Какашвилили"/>
-
-            <View
-                android:id="@+id/hr_view"
-                android:background="@color/black"
+            <RelativeLayout
+                android:id="@+id/id_container_menu"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_below="@id/namesurname_textview"
-                android:layout_marginTop="7dp"/>
+                android:layout_height="match_parent"
+                android:background="@color/backgroundGray"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="45dp">
 
-        </RelativeLayout>
+                <TextView
+                    style="@style/TextMenu.Main"
+                    android:id="@+id/nickname_textview"
+                    android:background="@color/backgroundGray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="xKatinJn"
+                    android:layout_centerHorizontal="true"/>
 
+                <TextView
+                    style="@style/TextMenu.Main"
+                    android:id="@+id/namesurname_textview"
+                    android:background="@color/backgroundGray"
+                    android:textSize="16dp"
+                    android:layout_below="@id/nickname_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Иннокентиев Какашвилили"
+                    android:layout_centerHorizontal="true"/>
+
+                <View
+                    android:id="@+id/hr_view"
+                    android:background="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_below="@id/namesurname_textview"
+                    android:layout_marginTop="30dp"/>
+
+                <RelativeLayout
+                    android:id="@+id/relative_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@color/backgroundGray"
+                    android:layout_marginTop="30dp"
+                    android:layout_below="@id/hr_view">
+
+                    <ExpandableListView
+                        android:id="@+id/menu_expandable"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true"
+                        android:divider="@null"
+                        android:background="@color/backgroundGray"/>
+
+                </RelativeLayout>
+
+                <ImageView
+                    android:id="@+id/logout_imageview"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:clickable="true"
+                    android:src="@drawable/logout"
+                    android:layout_below="@id/hr_view"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="600dp"
+                    android:background="@color/backgroundGray"/>
+            </RelativeLayout>
+        </ScrollView>
     </com.mxn.soul.flowingdrawer_core.FlowingMenuLayout>
 
 </com.mxn.soul.flowingdrawer_core.FlowingDrawer>

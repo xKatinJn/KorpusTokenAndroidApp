@@ -70,6 +70,8 @@ public class RegistrationActivity extends AppCompatActivity {
                     case R.id.female_radio:
                         sex[0] = getResources().getString(R.string.sex_female);
                         break;
+                    default:
+                        sex[0] = getResources().getString(R.string.sex_male);
                 }
             }
         });
