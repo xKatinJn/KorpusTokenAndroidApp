@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.DisplayMetrics;
+import android.util.TypedValue;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -131,5 +133,10 @@ public class UsefulScripts {
             flag = false;
         }
         return flag;
+    }
+
+    public static int convertDpToPx(int dp, DisplayMetrics displayMetrics) {
+        float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics);
+        return Math.round(pixels);
     }
 }

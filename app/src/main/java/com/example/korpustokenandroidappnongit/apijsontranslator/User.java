@@ -12,10 +12,13 @@ public class User {
     public String name;
     public String surname;
     public String message;
+    public boolean membership;
+    public boolean questionnaire_self;
+    public boolean questionnaire_team;
 
     public User (String email, String login, String tg_nickname, String courses, String birthday,
                  String education, String work_exp, String sex, String name, String surname,
-                 String message){
+                 String message, boolean membership){
         this.email = email;
         this.login = login;
         this.tg_nickname = tg_nickname;
@@ -27,5 +30,6 @@ public class User {
         this.name = name;
         this.surname = surname;
         this.message = message;
+        this.membership = membership;
     }
 }

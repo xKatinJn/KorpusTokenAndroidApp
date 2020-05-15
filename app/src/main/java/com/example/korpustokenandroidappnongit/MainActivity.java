@@ -1,22 +1,28 @@
 package com.example.korpustokenandroidappnongit;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 import com.example.korpustokenandroidappnongit.apijsontranslator.Get_user_req_post;
 import com.example.korpustokenandroidappnongit.request_methods.Get_user_method;
+import com.example.korpustokenandroidappnongit.scripts.MainActivityExpandableListAdapter;
 import com.example.korpustokenandroidappnongit.scripts.UsefulScripts;
 import com.google.gson.Gson;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -26,14 +32,18 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private FlowingDrawer mDrawer;
+    public static int questionnaire_request = 0;
+    private MainActivityExpandableListAdapter adapter;
+    private ExpandableListView menu;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        String token = sharedPreferences.getString("TOKEN", "EMPTY");
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+        String token = this.sharedPreferences.getString("TOKEN", "EMPTY");
 
         if (token.equals("EMPTY")) {
             finishAffinity();
@@ -47,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             user_get_action.execute();
 
             ImageView logout_imageview = (ImageView) findViewById(R.id.logout_imageview);
-            ExpandableListView menu = findViewById(R.id.menu_expandable);
+            this.menu = findViewById(R.id.menu_expandable);
             mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
             mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
 
@@ -58,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
             questionnaire_groups.add("Командная анкета");
             menu_item.put("Анкеты", questionnaire_groups);
 
-            MainActivityExpandableListAdapter adapter = new MainActivityExpandableListAdapter(menu_item);
-            menu.setAdapter(adapter);
+            this.adapter = new MainActivityExpandableListAdapter(menu_item);
+            this.menu.setAdapter(this.adapter);
 
             menu.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                 @Override
@@ -75,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                         case 0:
                             switch (childPosition){
                                 case 0:
-                                    startActivity(new Intent(MainActivity.this, QuestionnaireSelfActivity.class));
+                                    startActivityForResult(new Intent(MainActivity.this, QuestionnaireSelfActivity.class), questionnaire_request);
                                     Log.d("MAIN_ACTIVITY", "QUESTIONNAIRE_SELF");
                                     break;
                                 case 1:
@@ -95,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDrawerStateChange(int oldState, int newState) {
                     if (newState == ElasticDrawer.STATE_CLOSED) {
-
+                        menu.collapseGroup(0);
                     } else {
 
                     }
@@ -119,6 +129,23 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK){
+            if (requestCode == questionnaire_request){
+                if (data != null) {
+                    if (!this.sharedPreferences.getBoolean("QUESTIONNAIRE_SELF", true)) {
+                        TextView self_qst = (TextView) adapter.getChildView(0, 0, false, null, this.menu);
+                        self_qst.setTextColor(Color.GREEN);
+                        self_qst.setClickable(false);
+                    }
+                }
+            }
+        }
+    }
+
 
     @Override
     public void onBackPressed() {

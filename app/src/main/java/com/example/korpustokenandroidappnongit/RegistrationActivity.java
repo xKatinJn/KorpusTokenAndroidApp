@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -58,7 +59,7 @@ public class RegistrationActivity extends AppCompatActivity {
         final EditText education = (EditText) findViewById(R.id.education_edit);
         final EditText courses = (EditText) findViewById(R.id.courses_edit);
         final EditText work_exp = (EditText) findViewById(R.id.work_exp_edit);
-        final String[] sex = {""};
+        final String[] sex = {"Мужской"};
         RadioGroup sex_radio_group = (RadioGroup) findViewById(R.id.sex_radio_group);
         sex_radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -84,6 +85,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     if (UsefulScripts.RegistrationValidation(Arrays.asList(login, name, surname, tg_nickname), email, password, password_repeat)){
                         int month = birthdate.getMonth() + 1;
                         String birthdate_str = birthdate.getDayOfMonth()+"-"+month+"-"+birthdate.getYear();
+                        Log.d("REGISTRATION", " SEX: "+sex[0]);
                         User_registration_req_post req = new User_registration_req_post(
                                 email.getText().toString(), login.getText().toString(),
                                 password.getText().toString(), tg_nickname.getText().toString(),

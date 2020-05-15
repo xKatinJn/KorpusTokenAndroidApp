@@ -11,13 +11,11 @@
     app:edMenuBackground="@color/backgroundGray"
     app:edTouchBezelSize="10dp">
 
-    <!--content-->
     <RelativeLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-    <!--menu-->
     <com.mxn.soul.flowingdrawer_core.FlowingMenuLayout
         android:id="@+id/menulayout"
         android:layout_width="match_parent"
@@ -44,7 +42,6 @@
                     android:background="@color/backgroundGray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="xKatinJn"
                     android:layout_centerHorizontal="true"/>
 
                 <TextView
@@ -56,7 +53,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="Иннокентиев Какашвилили"
                     android:layout_centerHorizontal="true"/>
 
                 <View

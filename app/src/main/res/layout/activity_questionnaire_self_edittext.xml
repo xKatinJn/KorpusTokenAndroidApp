@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<EditText xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/TextEdit"
+    android:background="@drawable/rounded_edittext_questionnaire"
+    android:layout_width="351dp"
+    android:layout_height="wrap_content"
+    android:minLines="5"
+    android:maxLines="10"
+    android:inputType="textCapSentences|textMultiLine"
+    android:layout_marginTop="15dp"/>

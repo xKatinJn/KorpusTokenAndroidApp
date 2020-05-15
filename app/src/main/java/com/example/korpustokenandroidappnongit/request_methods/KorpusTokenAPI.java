@@ -9,7 +9,7 @@ public class KorpusTokenAPI {
     private static final String API_TAG = "API_ACTION";
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    private static final String BASE_URL = "http://" + "lk.korpus.io" + "/api/";
+    private static final String BASE_URL = "http://" + "localhost:5000" + "/api/";
 
     private static final String USER_PATH = "users/";
 
@@ -17,11 +17,16 @@ public class KorpusTokenAPI {
     private static final String REGISTER = "register";
     private static final String GET_USER = "get_user";
 
+    private static final String QUESTIONNAIRE_PATH = "questionnaire/";
+
+    private static final String QUESTIONNAIRE_SELF = "questionnaire_self";
+
     public static final List<String> PARAMS = Arrays.asList(
             "EMAIL", "LOGIN", "TG_NICKNAME",
             "COURSES", "BIRTHDAY", "EDUCATION",
             "WORK_EXP", "SEX", "NAME",
-            "SURNAME"
+            "SURNAME", "MEMBERSHIP", "QUESTIONNAIRE_SELF",
+            "QUESTIONNAIRE_TEAM"
             );
 
     public KorpusTokenAPI() {}
@@ -36,5 +41,9 @@ public class KorpusTokenAPI {
 
     public String User() {
         return BASE_URL+USER_PATH+GET_USER;
+    }
+
+    public String QuestionnaireSelf() {
+        return BASE_URL+QUESTIONNAIRE_PATH+ QUESTIONNAIRE_SELF;
     }
 }

@@ -54,4 +54,8 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="DividingView">
+        <item name="color">@color/transparent</item>
+    </style>
 </resources>

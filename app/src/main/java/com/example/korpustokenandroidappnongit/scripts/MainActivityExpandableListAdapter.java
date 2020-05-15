@@ -1,10 +1,12 @@
-package com.example.korpustokenandroidappnongit;
+package com.example.korpustokenandroidappnongit.scripts;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
+import com.example.korpustokenandroidappnongit.R;
 
 import java.util.HashMap;
 import java.util.List;

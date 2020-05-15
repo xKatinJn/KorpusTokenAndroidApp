@@ -6,20 +6,30 @@
     tools:context=".QuestionnaireSelfActivity">
 
     <RelativeLayout
+        android:id="@+id/relative_questionnaire_self"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp">
+        android:padding="20dp">
 
-        <EditText
-            style="@style/TextEdit"
-            android:background="@drawable/rounded_edittext_questionnaire"
-            android:layout_width="351dp"
+        <LinearLayout
+            android:id="@+id/relative_questionnaire_self_questions"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="7dp"
-            android:minLines="2"
-            android:maxLines="10"
-            android:inputType="textCapSentences|textMultiLine"
-            android:layout_centerHorizontal="true"/>
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true">
+
+        </LinearLayout>
+
+        <Button
+            style="@style/Button"
+            android:id="@+id/questionnaire_confirm_button"
+            android:layout_width="351dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/relative_questionnaire_self_questions"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/rounded_button"
+            android:layout_centerHorizontal="true"
+            android:text="@string/send"/>
     </RelativeLayout>
 
 </ScrollView>

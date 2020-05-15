@@ -3,6 +3,8 @@
     <string name="localhost">localhost:29061</string>
     <string name="server_error">Не удалось соединиться с сервером</string>
     <string name="internet_error">Отсутствует подключение к интернету</string>
+    <string name="send">Отправить</string>
+    <string name="successful">Готово</string>
 
     <string name="login">Логин</string>
     <string name="password">Пароль</string>

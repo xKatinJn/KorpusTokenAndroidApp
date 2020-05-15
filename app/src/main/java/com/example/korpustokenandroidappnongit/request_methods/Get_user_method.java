@@ -66,7 +66,10 @@ public class Get_user_method extends AsyncTask<String, Void, String> {
                         try {
                             Field field = this.user.getClass().getField(param.toLowerCase());
                             field.setAccessible(true);
-                            editor.putString(param, (String) field.get(this.user));
+                            if (param.equals("MEMBERSHIP") || param.equals("QUESTIONNAIRE_SELF") || param.equals("QUESTIONNAIRE_TEAM"))
+                                editor.putBoolean(param, (boolean) field.get(this.user));
+                            else
+                                editor.putString(param, (String) field.get(this.user));
                             editor.commit();
                         } catch (NoSuchFieldException | IllegalAccessException e) {
                             Log.e("USER_GET", e.toString());
@@ -77,7 +80,10 @@ public class Get_user_method extends AsyncTask<String, Void, String> {
                         try {
                             Field field = this.user.getClass().getField(param.toLowerCase());
                             field.setAccessible(true);
-                            editor.putString(param, (String) field.get(this.user));
+                            if (param.equals("MEMBERSHIP") || param.equals("QUESTIONNAIRE_SELF") || param.equals("QUESTIONNAIRE_TEAM"))
+                                editor.putBoolean(param, (boolean) field.get(this.user));
+                            else
+                                editor.putString(param, (String) field.get(this.user));
                             editor.commit();
                         } catch (NoSuchFieldException | IllegalAccessException e) {
                             Log.e("USER_GET", e.toString());
