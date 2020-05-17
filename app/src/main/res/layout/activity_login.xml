@@ -58,7 +58,7 @@
 
     <Button
         android:stateListAnimator="@null"
-        android:background="@drawable/no_border"
+        android:background="@color/transparent"
         android:id="@+id/registration_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

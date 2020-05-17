@@ -5,7 +5,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="fontFamily">monospace</item>
-        <item name="android:background">#FFFFFF</item>
+        <item name="android:background">@color/transparent</item>
     </style>
 
     <style name="Text">

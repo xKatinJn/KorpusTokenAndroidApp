@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.AndroidRuntimeException;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -28,7 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
         SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
-
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         final EditText login = (EditText) findViewById(R.id.login_edit);
         final EditText password = (EditText) findViewById(R.id.password_edit);
 
