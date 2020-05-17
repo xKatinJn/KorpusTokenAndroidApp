@@ -52,6 +52,7 @@ public class Login_method extends AsyncTask<String, Void, String> {
             }
         }catch (IOException e){
             Log.e("LOGIN_METHOD: ", e.toString());
+            return null;
         }
         return null;
     }
@@ -59,24 +60,22 @@ public class Login_method extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String resp) {
         if (resp != null) {
-            try {
-                this.login = new Gson().fromJson(resp, User_login_resp_post.class);
-                System.out.println(login.message);
-                if (this.login.message.equals("Logged")) {
-                    SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(this.activity);
-                    SharedPreferences.Editor editor = myPreferences.edit();
-                    editor.putString("TOKEN", login.token);
-                    editor.commit();
-                    activity.finishAffinity();
-                    activity.startActivity(new Intent(this.activity, MainActivity.class));
-                } else if (this.login.message.equals("Login or password incorrect")) {
-                    activity.findViewById(R.id.login_edit).setBackgroundResource(R.drawable.rounded_edittext_top_error);
-                    activity.findViewById(R.id.password_edit).setBackgroundResource(R.drawable.rounded_edittext_bottom_error);
-                    UsefulScripts.MakeToastError(this.activity, "Логин или пароль введены неверно", "#FF0000", true);
-                }
-            }catch (Exception e){
-                throw e;
+            this.login = new Gson().fromJson(resp, User_login_resp_post.class);
+            System.out.println(login.message);
+            if (this.login.message.equals("Logged")) {
+                SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(this.activity);
+                SharedPreferences.Editor editor = myPreferences.edit();
+                editor.putString("TOKEN", login.token);
+                editor.commit();
+                activity.finishAffinity();
+                activity.startActivity(new Intent(this.activity, MainActivity.class));
+            } else if (this.login.message.equals("Login or password incorrect")) {
+                activity.findViewById(R.id.login_edit).setBackgroundResource(R.drawable.rounded_edittext_top_error);
+                activity.findViewById(R.id.password_edit).setBackgroundResource(R.drawable.rounded_edittext_bottom_error);
+                UsefulScripts.MakeToastError(this.activity, "Логин или пароль введены неверно", "#FF0000", true);
             }
+        }else{
+            UsefulScripts.MakeToastError(this.activity, "Ошибка на серверной части. Пожалуйста, сообщите о проблеме разработчику", "#FF0000", true);
         }
     }
 }

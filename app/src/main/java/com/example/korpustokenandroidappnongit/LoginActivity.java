@@ -18,6 +18,7 @@ import com.example.korpustokenandroidappnongit.scripts.UsefulScripts;
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 
+import java.net.ConnectException;
 import java.util.Arrays;
 
 public class LoginActivity extends AppCompatActivity {
