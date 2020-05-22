@@ -29,7 +29,6 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
         SharedPreferences myPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
-        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         final EditText login = (EditText) findViewById(R.id.login_edit);
         final EditText password = (EditText) findViewById(R.id.password_edit);
 

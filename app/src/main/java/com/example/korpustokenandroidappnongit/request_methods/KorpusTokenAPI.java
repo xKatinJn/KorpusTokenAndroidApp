@@ -9,7 +9,7 @@ public class KorpusTokenAPI {
     private static final String API_TAG = "API_ACTION";
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    private static final String BASE_URL = "http://" + "localhost:5000" + "/api/";
+    private static final String BASE_URL = "http://" + "lk.korpus.io" + "/api/";
 
     private static final String USER_PATH = "users/";
 

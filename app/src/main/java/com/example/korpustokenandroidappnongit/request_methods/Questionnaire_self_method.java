@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.example.korpustokenandroidappnongit.MainActivity;
 import com.example.korpustokenandroidappnongit.QuestionnaireSelfActivity;
 import com.example.korpustokenandroidappnongit.R;
 import com.example.korpustokenandroidappnongit.apijsontranslator.Get_user_req_post;
@@ -34,7 +35,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class Questionnaire_self_method extends AsyncTask<ResponseBody, Void, ResponseBody> {
+public class Questionnaire_self_method extends AsyncTask<String, Void, String> {
     private String json;
     public Map<String, EditText> questions_fields;
     private String request_method;
@@ -58,19 +59,19 @@ public class Questionnaire_self_method extends AsyncTask<ResponseBody, Void, Res
     }
 
     @Override
-    protected ResponseBody doInBackground(ResponseBody... responseBodies) {
+    protected String doInBackground(String... strings) {
         try{
             if (this.request_method == "GET"){
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder().url(this.URL).build();
                 Response response = client.newCall(request).execute();
-                return response.body();
+                return response.body().string();
             }else{
                 OkHttpClient client = new OkHttpClient();
                 RequestBody body = RequestBody.create(JSON, this.json.getBytes("UTF-8"));
                 Request request = new Request.Builder().url(this.URL).post(body).build();
                 Response response = client.newCall(request).execute();
-                return response.body();
+                return response.body().string();
             }
         }catch (IOException e){
             Log.e("QUESTIONNAIRE_METHOD", e.toString());
@@ -79,12 +80,11 @@ public class Questionnaire_self_method extends AsyncTask<ResponseBody, Void, Res
     }
 
     @Override
-    protected void onPostExecute(ResponseBody response) {
-
+    protected void onPostExecute(String response) {
         if (this.request_method == "GET") {
             if (response != null) {
                 try {
-                    this.resp_get = new Gson().fromJson(response.string(), this.resp_get.getClass());
+                    this.resp_get = new Gson().fromJson(response, this.resp_get.getClass());
                     if (this.resp_get.message.equals("OK")) {
                         LinearLayout question_container = (LinearLayout) this.activity.findViewById(R.id.relative_questionnaire_self_questions);
                         for (String question : this.resp_get.questions) {
@@ -96,16 +96,21 @@ public class Questionnaire_self_method extends AsyncTask<ResponseBody, Void, Res
                             textView.setLabelFor(editText.getId());
 
 
-                            View divider = new View(new ContextThemeWrapper(this.activity, R.style.DividingView));
-                            divider.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UsefulScripts.convertDpToPx(15, this.activity.getResources().getDisplayMetrics())));
+                            View divider_1 = new View(new ContextThemeWrapper(this.activity, R.style.DividingView));
+                            divider_1.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UsefulScripts.ConvertDpToPx(15, this.activity.getResources().getDisplayMetrics())));
                             questions_fields.put(question, editText);
 
                             question_container.addView(textView);
+                            if (this.resp_get.questions.indexOf(question) != 0) {
+                                View divider_2 = new View(new ContextThemeWrapper(this.activity, R.style.DividingView));
+                                divider_2.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UsefulScripts.ConvertDpToPx(10, this.activity.getResources().getDisplayMetrics())));
+                                question_container.addView(divider_2);
+                            }
                             question_container.addView(editText);
-                            question_container.addView(divider);
+                            question_container.addView(divider_1);
                         }
                     }
-                } catch (IOException e) {
+                } catch (Exception e) {
                     Log.d("QSM", " GET ERR: " + response);
 
                 }
@@ -113,12 +118,13 @@ public class Questionnaire_self_method extends AsyncTask<ResponseBody, Void, Res
         }else{
             try{
                 if (response != null) {
-                    this.resp_post = new Gson().fromJson(response.string(), Questionnaire_self_resp_post.class);
+                    this.resp_post = new Gson().fromJson(response, Questionnaire_self_resp_post.class);
                 }
-                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.activity);
-                String new_json = new Gson().toJson(new Get_user_req_post(Arrays.asList("QUESTIONNAIRE_SELF"), (String) sharedPreferences.getString("TOKEN", "EMPTY")));
-                new Get_user_method(new_json, Arrays.asList("QUESTIONNAIRE_SELF"), this.activity).execute();
-            }catch (IOException e) {
+                //UsefulScripts.ReloadActivity(this.main_activity);
+//                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.activity);
+//                String new_json = new Gson().toJson(new Get_user_req_post(Arrays.asList("QUESTIONNAIRE_SELF"), (String) sharedPreferences.getString("TOKEN", "EMPTY")));
+//                new Get_user_method(new_json, Arrays.asList("QUESTIONNAIRE_SELF"), this.activity).execute();
+            }catch (Exception e) {
                 Log.d("ERROR_QSM", " RESPONSE: "+response);
                 throw new NoSuchElementException(resp_post.message);
             }

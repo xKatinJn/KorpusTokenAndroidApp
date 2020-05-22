@@ -1,5 +1,6 @@
 package com.example.korpustokenandroidappnongit.scripts;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -135,8 +136,15 @@ public class UsefulScripts {
         return flag;
     }
 
-    public static int convertDpToPx(int dp, DisplayMetrics displayMetrics) {
+    public static int ConvertDpToPx(int dp, DisplayMetrics displayMetrics) {
         float pixels = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, displayMetrics);
         return Math.round(pixels);
+    }
+
+    public static void ReloadActivity(Activity activity) {
+        activity.finish();
+        activity.overridePendingTransition(0, 0);
+        activity.startActivity(activity.getIntent());
+        activity.overridePendingTransition(0, 0);
     }
 }

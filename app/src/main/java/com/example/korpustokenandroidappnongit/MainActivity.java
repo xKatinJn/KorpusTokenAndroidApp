@@ -7,10 +7,12 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -85,11 +87,19 @@ public class MainActivity extends AppCompatActivity {
                         case 0:
                             switch (childPosition){
                                 case 0:
-                                    startActivityForResult(new Intent(MainActivity.this, QuestionnaireSelfActivity.class), questionnaire_request);
-                                    Log.d("MAIN_ACTIVITY", "QUESTIONNAIRE_SELF");
+                                    if (sharedPreferences.getBoolean("QUESTIONNAIRE_SELF", true)) {
+                                        startActivity(new Intent(MainActivity.this, QuestionnaireSelfActivity.class));
+                                        Log.d("MAIN_ACTIVITY", "QUESTIONNAIRE_SELF");
+                                    }else{
+                                        UsefulScripts.MakeToastError(MainActivity.this, "Анкета уже заполнена", "#FF0000", false);
+                                    }
                                     break;
                                 case 1:
-                                    Log.d("MAIN_ACTIVITY", "QUESTIONNAIRE_TEAM");
+                                    if (sharedPreferences.getBoolean("QUESTIONNAIRE_TEAM", true)) {
+                                        Log.d("MAIN_ACTIVITY", "QUESTIONNAIRE_TEAM");
+                                    }else{
+                                        UsefulScripts.MakeToastError(MainActivity.this, "Анкета уже заполнена", "#FF0000", false);
+                                    }
                                     break;
                             }
                             break;
@@ -130,21 +140,19 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK){
-            if (requestCode == questionnaire_request){
-                if (data != null) {
-                    if (!this.sharedPreferences.getBoolean("QUESTIONNAIRE_SELF", true)) {
-                        TextView self_qst = (TextView) adapter.getChildView(0, 0, false, null, this.menu);
-                        self_qst.setTextColor(Color.GREEN);
-                        self_qst.setClickable(false);
-                    }
-                }
-            }
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == Activity.RESULT_OK){
+//            if (requestCode == questionnaire_request){
+//                if (data != null) {
+//                    if (!this.sharedPreferences.getBoolean("QUESTIONNAIRE_SELF", true)) {
+//                        UsefulScripts.ReloadActivity(MainActivity.this);
+//                    }
+//                }
+//            }
+//        }
+//    }
 
 
     @Override

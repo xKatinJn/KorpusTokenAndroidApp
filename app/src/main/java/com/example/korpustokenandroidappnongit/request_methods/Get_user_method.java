@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.korpustokenandroidappnongit.MainActivity;
 import com.example.korpustokenandroidappnongit.R;
 import com.example.korpustokenandroidappnongit.apijsontranslator.User;
+import com.example.korpustokenandroidappnongit.scripts.UsefulScripts;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -53,9 +54,10 @@ public class Get_user_method extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String response) {
-        this.user = new Gson().fromJson(response, User.class);
-        Log.d("USER_GET_METHOD", "USER HAS BEEN RECEIVED");
         try {
+            this.user = new Gson().fromJson(response, User.class);
+            Log.d("USER_GET_METHOD", "USER HAS BEEN RECEIVED");
+
             if (this.user.message.equals("Access denied")) {
                 // do smth
             } else {
@@ -97,8 +99,9 @@ public class Get_user_method extends AsyncTask<String, Void, String> {
                     name_surname.setText(sharedPreferences.getString("NAME", "USER_NAME") + " " + sharedPreferences.getString("SURNAME", "USER_SURNAME"));
                 }
             }
-        }catch (NullPointerException e){
-            Log.e("USER_GET_METHOD", "NULL POINTER");
+        }catch (Exception e){
+            UsefulScripts.MakeToastError(this.activity, "Ошибка на серверной части. Пожалуйста, сообщите о проблеме разработчику", "#FF0000", true);
+            Log.e("USER_GET_METHOD", e.toString());
         }
     }
 

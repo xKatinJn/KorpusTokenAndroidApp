@@ -33,7 +33,6 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class QuestionnaireSelfActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
