@@ -33,4 +33,5 @@
 
     <string name="questionnaire_self">Личная анкета</string>
 
+    <string name="questionnaire_team">Командная анкета</string>
 </resources>

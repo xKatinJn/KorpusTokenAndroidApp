@@ -61,7 +61,7 @@ public class Questionnaire_self_method extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         try{
-            if (this.request_method == "GET"){
+            if (this.request_method.equals("GET")){
                 OkHttpClient client = new OkHttpClient();
                 Request request = new Request.Builder().url(this.URL).build();
                 Response response = client.newCall(request).execute();
@@ -81,7 +81,7 @@ public class Questionnaire_self_method extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String response) {
-        if (this.request_method == "GET") {
+        if (this.request_method.equals("GET")) {
             if (response != null) {
                 try {
                     this.resp_get = new Gson().fromJson(response, this.resp_get.getClass());
@@ -101,11 +101,9 @@ public class Questionnaire_self_method extends AsyncTask<String, Void, String> {
                             questions_fields.put(question, editText);
 
                             question_container.addView(textView);
-                            if (this.resp_get.questions.indexOf(question) != 0) {
-                                View divider_2 = new View(new ContextThemeWrapper(this.activity, R.style.DividingView));
-                                divider_2.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UsefulScripts.ConvertDpToPx(10, this.activity.getResources().getDisplayMetrics())));
-                                question_container.addView(divider_2);
-                            }
+                            View divider_2 = new View(new ContextThemeWrapper(this.activity, R.style.DividingView));
+                            divider_2.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UsefulScripts.ConvertDpToPx(10, this.activity.getResources().getDisplayMetrics())));
+                            question_container.addView(divider_2);
                             question_container.addView(editText);
                             question_container.addView(divider_1);
                         }

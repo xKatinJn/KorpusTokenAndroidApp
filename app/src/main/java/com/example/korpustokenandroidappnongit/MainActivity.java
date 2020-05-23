@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         }else{
             if (!UsefulScripts.isOnline(MainActivity.this))
                 UsefulScripts.MakeToastInternetError(MainActivity.this);
-            Get_user_req_post user_req_get = new Get_user_req_post(Arrays.asList("ALL"), token);
+            Get_user_req_post user_req_get = new Get_user_req_post(Arrays.asList("ALL"), token, null);
             String json = new Gson().toJson(user_req_get);
             Get_user_method user_get_action = new Get_user_method(json, Arrays.asList("ALL"), MainActivity.this);
             user_get_action.execute();
@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                                     break;
                                 case 1:
                                     if (sharedPreferences.getBoolean("QUESTIONNAIRE_TEAM", true)) {
+                                        startActivity(new Intent(MainActivity.this, QuestionnaireTeamActivity.class));
                                         Log.d("MAIN_ACTIVITY", "QUESTIONNAIRE_TEAM");
                                     }else{
                                         UsefulScripts.MakeToastError(MainActivity.this, "Анкета уже заполнена", "#FF0000", false);
