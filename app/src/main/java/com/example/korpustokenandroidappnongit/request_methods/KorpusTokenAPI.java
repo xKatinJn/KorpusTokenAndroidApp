@@ -16,6 +16,7 @@ public class KorpusTokenAPI {
     private static final String LOGIN = "login";
     private static final String REGISTER = "register";
     private static final String GET_USER = "get_user";
+    private static final String GET_TEAMMATES = "get_teammates";
 
     private static final String QUESTIONNAIRE_PATH = "questionnaire/";
 
@@ -27,7 +28,7 @@ public class KorpusTokenAPI {
             "COURSES", "BIRTHDAY", "EDUCATION",
             "WORK_EXP", "SEX", "NAME",
             "SURNAME", "MEMBERSHIP", "QUESTIONNAIRE_SELF",
-            "QUESTIONNAIRE_TEAM", "TEAMMATES"
+            "QUESTIONNAIRE_TEAM", "MEMBERSHIP", "TEAMS"
             );
 
     public KorpusTokenAPI() {}
@@ -42,6 +43,10 @@ public class KorpusTokenAPI {
 
     public String User() {
         return BASE_URL+USER_PATH+GET_USER;
+    }
+
+    public String GetTeammates() {
+        return BASE_URL+USER_PATH+GET_TEAMMATES;
     }
 
     public String QuestionnaireSelf() {

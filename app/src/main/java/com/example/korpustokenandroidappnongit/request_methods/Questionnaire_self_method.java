@@ -118,10 +118,6 @@ public class Questionnaire_self_method extends AsyncTask<String, Void, String> {
                 if (response != null) {
                     this.resp_post = new Gson().fromJson(response, Questionnaire_self_resp_post.class);
                 }
-                //UsefulScripts.ReloadActivity(this.main_activity);
-//                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.activity);
-//                String new_json = new Gson().toJson(new Get_user_req_post(Arrays.asList("QUESTIONNAIRE_SELF"), (String) sharedPreferences.getString("TOKEN", "EMPTY")));
-//                new Get_user_method(new_json, Arrays.asList("QUESTIONNAIRE_SELF"), this.activity).execute();
             }catch (Exception e) {
                 Log.d("ERROR_QSM", " RESPONSE: "+response);
                 throw new NoSuchElementException(resp_post.message);

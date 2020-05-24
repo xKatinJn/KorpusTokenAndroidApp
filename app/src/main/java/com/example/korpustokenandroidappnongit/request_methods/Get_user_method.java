@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.korpustokenandroidappnongit.MainActivity;
 import com.example.korpustokenandroidappnongit.R;
@@ -59,7 +60,7 @@ public class Get_user_method extends AsyncTask<String, Void, String> {
             Log.d("USER_GET_METHOD", "USER HAS BEEN RECEIVED");
 
             if (this.user.message.equals("Access denied")) {
-                // do smth
+                UsefulScripts.MakeToastError(this.activity, "Ошибка доступа. Не удалось загрузить информацию о пользователе", "#FF0000", true);
             } else {
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.activity);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -70,6 +71,8 @@ public class Get_user_method extends AsyncTask<String, Void, String> {
                             field.setAccessible(true);
                             if (param.equals("MEMBERSHIP") || param.equals("QUESTIONNAIRE_SELF") || param.equals("QUESTIONNAIRE_TEAM"))
                                 editor.putBoolean(param, (boolean) field.get(this.user));
+                            else if (param.equals("TEAMS"))
+                                editor.putInt(param, (int) field.get(this.user));
                             else
                                 editor.putString(param, (String) field.get(this.user));
                             editor.commit();
@@ -84,6 +87,8 @@ public class Get_user_method extends AsyncTask<String, Void, String> {
                             field.setAccessible(true);
                             if (param.equals("MEMBERSHIP") || param.equals("QUESTIONNAIRE_SELF") || param.equals("QUESTIONNAIRE_TEAM"))
                                 editor.putBoolean(param, (boolean) field.get(this.user));
+                            else if (param.equals("TEAMS"))
+                                editor.putInt(param, (int) field.get(this.user));
                             else
                                 editor.putString(param, (String) field.get(this.user));
                             editor.commit();

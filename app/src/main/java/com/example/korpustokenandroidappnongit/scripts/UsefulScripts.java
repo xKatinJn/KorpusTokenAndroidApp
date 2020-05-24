@@ -8,12 +8,15 @@ import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.korpustokenandroidappnongit.R;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -80,6 +83,20 @@ public class UsefulScripts {
                 flag = false;
             }else{
                 field.setBackgroundResource(R.drawable.rounded_edittext);
+            }
+        }
+        return flag;
+    }
+
+    public static boolean EmptyFieldValidation(Collection<RadioGroup> radioGroups) {
+        boolean flag = true;
+
+        for (RadioGroup radioGroup : radioGroups){
+            if (radioGroup.getCheckedRadioButtonId() == -1){
+                radioGroup.setBackgroundColor(Color.RED);
+                flag = false;
+            }else{
+                radioGroup.setBackgroundColor(500036);
             }
         }
         return flag;

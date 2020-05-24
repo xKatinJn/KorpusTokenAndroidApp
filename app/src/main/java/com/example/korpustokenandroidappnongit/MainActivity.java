@@ -3,10 +3,13 @@ package com.example.korpustokenandroidappnongit;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +17,7 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.korpustokenandroidappnongit.apijsontranslator.Get_user_req_post;
@@ -34,7 +38,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private FlowingDrawer mDrawer;
-    public static int questionnaire_request = 0;
+    public static int questionnaire_self_request = 0;
+    public static int questionnaire_team_request = 1;
     private MainActivityExpandableListAdapter adapter;
     private ExpandableListView menu;
     private SharedPreferences sharedPreferences;
@@ -88,16 +93,24 @@ public class MainActivity extends AppCompatActivity {
                             switch (childPosition){
                                 case 0:
                                     if (sharedPreferences.getBoolean("QUESTIONNAIRE_SELF", true)) {
-                                        startActivity(new Intent(MainActivity.this, QuestionnaireSelfActivity.class));
-                                        Log.d("MAIN_ACTIVITY", "QUESTIONNAIRE_SELF");
+                                        if (UsefulScripts.isOnline(MainActivity.this)) {
+                                            startActivityForResult(new Intent(MainActivity.this, QuestionnaireSelfActivity.class), questionnaire_self_request);
+                                            Log.d("MAIN_ACTIVITY", "QUESTIONNAIRE_SELF");
+                                        }else{
+                                            UsefulScripts.MakeToastInternetError(MainActivity.this);
+                                        }
                                     }else{
                                         UsefulScripts.MakeToastError(MainActivity.this, "Анкета уже заполнена", "#FF0000", false);
                                     }
                                     break;
                                 case 1:
                                     if (sharedPreferences.getBoolean("QUESTIONNAIRE_TEAM", true)) {
-                                        startActivity(new Intent(MainActivity.this, QuestionnaireTeamActivity.class));
-                                        Log.d("MAIN_ACTIVITY", "QUESTIONNAIRE_TEAM");
+                                        if (UsefulScripts.isOnline(MainActivity.this)) {
+                                            startActivity(new Intent(MainActivity.this, QuestionnaireTeamActivity.class));
+                                            Log.d("MAIN_ACTIVITY", "QUESTIONNAIRE_TEAM");
+                                        }else{
+                                            UsefulScripts.MakeToastInternetError(MainActivity.this);
+                                        }
                                     }else{
                                         UsefulScripts.MakeToastError(MainActivity.this, "Анкета уже заполнена", "#FF0000", false);
                                     }
@@ -141,19 +154,25 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == Activity.RESULT_OK){
-//            if (requestCode == questionnaire_request){
-//                if (data != null) {
-//                    if (!this.sharedPreferences.getBoolean("QUESTIONNAIRE_SELF", true)) {
-//                        UsefulScripts.ReloadActivity(MainActivity.this);
-//                    }
-//                }
-//            }
-//        }
-//    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK){
+            if (requestCode == questionnaire_self_request){
+                if (data != null) {
+                    if (this.sharedPreferences.getBoolean("QUESTIONNAIRE_SELF", true)) {
+                        UsefulScripts.ReloadActivity(MainActivity.this);
+                    }
+                }
+            }else if (requestCode == questionnaire_team_request){
+                if (data != null) {
+                    if (this.sharedPreferences.getBoolean("QUESTIONNAIRE_TEAM", true)) {
+                        UsefulScripts.ReloadActivity(MainActivity.this);
+                    }
+                }
+            }
+        }
+    }
 
 
     @Override

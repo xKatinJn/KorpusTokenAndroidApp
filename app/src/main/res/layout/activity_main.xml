@@ -11,10 +11,43 @@
     app:edMenuBackground="@color/backgroundGray"
     app:edTouchBezelSize="10dp">
 
-    <RelativeLayout
-        android:id="@+id/content"
+    <ScrollView
+        android:id="@+id/content_scroll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/content_child_relative"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp">
+            <TextView
+                android:id="@+id/title"
+                style="@style/Text.Main"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Что такое Корпус?"
+                android:textAlignment="center"
+                android:textSize="35dp"
+                android:layout_marginBottom="15dp"/>
+            <TextView
+                android:id="@+id/korpus_description"
+                style="@style/Text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title"
+                android:text="@string/korpus_description"
+                android:textAlignment="textStart"
+                android:layout_marginBottom="15dp"/>
+            <ImageView
+                android:layout_below="@id/korpus_description"
+                android:layout_width="wrap_content"
+                android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/korpus_wood"/>
+
+        </RelativeLayout>
+    </ScrollView>
 
     <com.mxn.soul.flowingdrawer_core.FlowingMenuLayout
         android:id="@+id/menulayout"

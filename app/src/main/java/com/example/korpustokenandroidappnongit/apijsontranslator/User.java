@@ -1,5 +1,6 @@
 package com.example.korpustokenandroidappnongit.apijsontranslator;
 
+import java.util.List;
 import java.util.Map;
 
 public class User {
@@ -17,7 +18,8 @@ public class User {
     public boolean membership;
     public boolean questionnaire_self;
     public boolean questionnaire_team;
-    public Map<String, Integer> teammates;
+    public Integer teams;
+    //public List<Integer> teams;
 
 //    public User (String email, String login, String tg_nickname, String courses, String birthday,
 //                 String education, String work_exp, String sex, String name, String surname,

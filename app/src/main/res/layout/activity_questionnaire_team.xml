@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".QuestionnaireTeamActivity">
 
     <RelativeLayout
         android:id="@+id/relative_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="20dp">
 
         <LinearLayout
             android:id="@+id/linear_questions"
@@ -19,5 +19,16 @@
             android:layout_centerHorizontal="true">
 
         </LinearLayout>
+
+        <Button
+            style="@style/Button"
+            android:id="@+id/questionnaire_confirm_button"
+            android:layout_width="351dp"
+            android:layout_height="45dp"
+            android:layout_below="@id/linear_questions"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/rounded_button"
+            android:layout_centerHorizontal="true"
+            android:text="@string/send"/>
     </RelativeLayout>
 </ScrollView>
