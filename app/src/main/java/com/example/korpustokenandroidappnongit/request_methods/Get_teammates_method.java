@@ -53,6 +53,7 @@ public class Get_teammates_method extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String response) {
         if (response != null){
+            Log.d("RESPONSE", response);
             this.resp_post = new Gson().fromJson(response, this.resp_post.getClass());
             if (this.resp_post.message.equals("OK")){
                 this.questionnaire_team_method.teammates = this.resp_post.teammates;

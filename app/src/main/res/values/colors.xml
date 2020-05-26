@@ -6,6 +6,7 @@
     <color name="backgroundBlue">#7C4084F1</color>
     <color name="backgroundGray">#dedede</color>
     <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
     <color name="red_error">#DC143C</color>
     <color name="milk_chocolate">#84563c</color>
     <color name="soft_milk_chocolate">#9a7059</color>

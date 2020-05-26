@@ -20,7 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.korpustokenandroidappnongit.apijsontranslator.Get_status_req_post;
 import com.example.korpustokenandroidappnongit.apijsontranslator.Get_user_req_post;
+import com.example.korpustokenandroidappnongit.request_methods.Get_status_method;
 import com.example.korpustokenandroidappnongit.request_methods.Get_user_method;
 import com.example.korpustokenandroidappnongit.scripts.MainActivityExpandableListAdapter;
 import com.example.korpustokenandroidappnongit.scripts.UsefulScripts;
@@ -29,7 +31,9 @@ import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,8 +53,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        String token = this.sharedPreferences.getString("TOKEN", "EMPTY");
+        final String token = this.sharedPreferences.getString("TOKEN", "EMPTY");
 
         if (token.equals("EMPTY")) {
             finishAffinity();
@@ -58,25 +65,18 @@ public class MainActivity extends AppCompatActivity {
         }else{
             if (!UsefulScripts.isOnline(MainActivity.this))
                 UsefulScripts.MakeToastInternetError(MainActivity.this);
+            Get_status_method get_status_method = new Get_status_method(new Gson().toJson(new Get_status_req_post(token)), MainActivity.this);
+
             Get_user_req_post user_req_get = new Get_user_req_post(Arrays.asList("ALL"), token, null);
-            String json = new Gson().toJson(user_req_get);
+            final String json = new Gson().toJson(user_req_get);
             Get_user_method user_get_action = new Get_user_method(json, Arrays.asList("ALL"), MainActivity.this);
             user_get_action.execute();
-
             ImageView logout_imageview = (ImageView) findViewById(R.id.logout_imageview);
             this.menu = findViewById(R.id.menu_expandable);
             mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
             mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
 
-            final HashMap<String, List<String>> menu_item = new HashMap<>();
-
-            final ArrayList<String> questionnaire_groups = new ArrayList<>();
-            questionnaire_groups.add("Личная анкета");
-            questionnaire_groups.add("Командная анкета");
-            menu_item.put("Анкеты", questionnaire_groups);
-
-            this.adapter = new MainActivityExpandableListAdapter(menu_item);
-            this.menu.setAdapter(this.adapter);
+            SwipeRefreshLayout refreshLayout = findViewById(R.id.refresher);
 
             menu.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
                 @Override
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                                 case 1:
                                     if (sharedPreferences.getBoolean("QUESTIONNAIRE_TEAM", true)) {
                                         if (UsefulScripts.isOnline(MainActivity.this)) {
-                                            startActivity(new Intent(MainActivity.this, QuestionnaireTeamActivity.class));
+                                            startActivityForResult(new Intent(MainActivity.this, QuestionnaireTeamActivity.class), questionnaire_team_request);
                                             Log.d("MAIN_ACTIVITY", "QUESTIONNAIRE_TEAM");
                                         }else{
                                             UsefulScripts.MakeToastInternetError(MainActivity.this);
@@ -151,6 +151,29 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }
             });
+
+            refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    Get_status_method get_status_method = new Get_status_method(new Gson().toJson(new Get_status_req_post(token)), MainActivity.this);
+                    get_status_method.execute();
+                    Get_user_method user_get_action = new Get_user_method(json, Arrays.asList("ALL"), MainActivity.this);
+                    user_get_action.execute();
+                    Log.d("MAIN_ACTIVITY", "REFRESHING");
+                }
+            });
+
+            final HashMap<String, List<String>> menu_item = new HashMap<>();
+
+            final ArrayList<String> questionnaire_groups = new ArrayList<>();
+            questionnaire_groups.add("Личная анкета");
+            Log.d("MAIN_ACTIVITY", Boolean.toString(sharedPreferences.getBoolean("MEMBERSHIP", false)));
+            if (sharedPreferences.getBoolean("MEMBERSHIP", true))
+                questionnaire_groups.add("Командная анкета");
+            menu_item.put("Анкеты", questionnaire_groups);
+            get_status_method.execute();
+            this.adapter = new MainActivityExpandableListAdapter(menu_item);
+            this.menu.setAdapter(this.adapter);
         }
     }
 

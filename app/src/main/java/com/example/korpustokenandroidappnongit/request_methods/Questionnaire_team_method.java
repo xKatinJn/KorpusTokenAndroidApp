@@ -121,6 +121,7 @@ public class Questionnaire_team_method extends AsyncTask<String, Void, String> {
                         this.questions_container.put(textView, radioGroup);
                         Log.d("QST_TEAM", "ALL_ADDED");
                     }
+                    this.activity.findViewById(R.id.questionnaire_confirm_button).setVisibility(View.VISIBLE);
                 }
             }else{
                 Log.d("QST_TEAM", this.resp_get.message);

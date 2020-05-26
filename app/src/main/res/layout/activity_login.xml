@@ -75,13 +75,13 @@
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="400dp"
+        android:layout_width="351dp"
         android:layout_height="200dp"
         android:layout_marginTop="50dp"
         app:layout_constraintBottom_toTopOf="@+id/login_edit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/auth_white_logo" />
+        app:srcCompat="@drawable/korpus_black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

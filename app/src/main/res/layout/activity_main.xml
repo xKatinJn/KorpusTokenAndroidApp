@@ -1,131 +1,202 @@
-<com.mxn.soul.flowingdrawer_core.FlowingDrawer
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawerlayout"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/refresher"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipChildren="false"
-    android:clipToPadding="false"
-    app:edPosition="1"
-    app:edMenuSize="260dp"
-    app:edMenuBackground="@color/backgroundGray"
-    app:edTouchBezelSize="10dp">
+    android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/content_scroll"
+    <com.mxn.soul.flowingdrawer_core.FlowingDrawer
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/drawerlayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-        <RelativeLayout
-            android:id="@+id/content_child_relative"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="15dp">
-            <TextView
-                android:id="@+id/title"
-                style="@style/Text.Main"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Что такое Корпус?"
-                android:textAlignment="center"
-                android:textSize="35dp"
-                android:layout_marginBottom="15dp"/>
-            <TextView
-                android:id="@+id/korpus_description"
-                style="@style/Text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/title"
-                android:text="@string/korpus_description"
-                android:textAlignment="textStart"
-                android:layout_marginBottom="15dp"/>
-            <ImageView
-                android:layout_below="@id/korpus_description"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/korpus_wood"/>
-
-        </RelativeLayout>
-    </ScrollView>
-
-    <com.mxn.soul.flowingdrawer_core.FlowingMenuLayout
-        android:id="@+id/menulayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:edPosition="1"
+        app:edMenuSize="260dp"
+        app:edMenuBackground="@color/backgroundGray"
+        app:edTouchBezelSize="20dp">
 
         <ScrollView
-            android:id="@+id/scrollview_menu"
+            android:id="@+id/content_scroll"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/backgroundGray">
-
+            android:orientation="vertical">
             <RelativeLayout
-                android:id="@+id/id_container_menu"
+                android:id="@+id/content_child_relative"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/backgroundGray"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="45dp">
-
-                <TextView
-                    style="@style/TextMenu.Main"
-                    android:id="@+id/nickname_textview"
-                    android:background="@color/backgroundGray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"/>
-
-                <TextView
-                    style="@style/TextMenu.Main"
-                    android:id="@+id/namesurname_textview"
-                    android:background="@color/backgroundGray"
-                    android:textSize="16dp"
-                    android:layout_below="@id/nickname_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_centerHorizontal="true"/>
-
-                <View
-                    android:id="@+id/hr_view"
-                    android:background="@color/black"
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_below="@id/namesurname_textview"
-                    android:layout_marginTop="30dp"/>
-
-                <RelativeLayout
-                    android:id="@+id/relative_menu"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@color/backgroundGray"
-                    android:layout_marginTop="30dp"
-                    android:layout_below="@id/hr_view">
-
-                    <ExpandableListView
-                        android:id="@+id/menu_expandable"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:divider="@null"
-                        android:background="@color/backgroundGray"/>
-
-                </RelativeLayout>
+                android:padding="15dp">
 
                 <ImageView
-                    android:id="@+id/logout_imageview"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:clickable="true"
-                    android:src="@drawable/logout"
-                    android:layout_below="@id/hr_view"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="600dp"
-                    android:background="@color/backgroundGray"/>
+                    android:id="@+id/image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    app:srcCompat="@drawable/korpus_black" />
+
+                <RelativeLayout
+                    android:id="@+id/content_child_relative_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/image_view">
+
+                    <View
+                        android:id="@+id/hr_view_main"
+                        android:background="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="15dp"/>
+
+                    <TextView
+                        android:id="@+id/qst_label"
+                        style="@style/Text.Main"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/hr_view_main"
+                        android:text="Статус анкетирования:"
+                        android:textSize="20dp"
+                        android:textAlignment="center"/>
+
+                    <TextView
+                        android:id="@+id/qst_status"
+                        style="@style/Text.Main"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/qst_label"
+                        android:layout_below="@id/hr_view_main"
+                        android:layout_marginLeft="5dp"
+                        android:textSize="20dp"/>
+
+                    <RelativeLayout
+                        android:id="@+id/qst_child_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="7dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:layout_below="@id/qst_label">
+
+                        <TextView
+                            android:id="@+id/qst_self_label"
+                            style="@style/Text.Main"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Личная анкета:"
+                            android:textSize="15dp"
+                            android:visibility="invisible"/>
+
+                        <TextView
+                            android:id="@+id/qst_self"
+                            style="@style/Text.Main"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/qst_self_label"
+                            android:layout_marginLeft="5dp"
+                            android:textSize="15dp"
+                            android:visibility="invisible"/>
+
+                        <TextView
+                            android:id="@+id/qst_team_label"
+                            style="@style/Text.Main"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Командная анкета:"
+                            android:textSize="15dp"
+                            android:layout_below="@id/qst_self_label"
+                            android:layout_marginTop="7dp"
+                            android:visibility="invisible"/>
+
+                        <TextView
+                            android:id="@+id/qst_team"
+                            style="@style/Text.Main"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/qst_self"
+                            android:layout_toRightOf="@id/qst_team_label"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="7dp"
+                            android:textSize="15dp"
+                            android:visibility="invisible"/>
+                        </RelativeLayout>
+                </RelativeLayout>
             </RelativeLayout>
         </ScrollView>
-    </com.mxn.soul.flowingdrawer_core.FlowingMenuLayout>
 
-</com.mxn.soul.flowingdrawer_core.FlowingDrawer>
+        <com.mxn.soul.flowingdrawer_core.FlowingMenuLayout
+            android:id="@+id/menulayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:id="@+id/scrollview_menu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/backgroundGray">
+
+                <RelativeLayout
+                    android:id="@+id/id_container_menu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/backgroundGray"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingTop="45dp">
+
+                    <TextView
+                        style="@style/TextMenu.Main"
+                        android:id="@+id/nickname_textview"
+                        android:background="@color/backgroundGray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"/>
+
+                    <TextView
+                        style="@style/TextMenu.Main"
+                        android:id="@+id/namesurname_textview"
+                        android:background="@color/backgroundGray"
+                        android:textSize="16dp"
+                        android:layout_below="@id/nickname_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_centerHorizontal="true"/>
+
+                    <View
+                        android:id="@+id/hr_view"
+                        android:background="@color/black"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_below="@id/namesurname_textview"
+                        android:layout_marginTop="30dp"/>
+
+                    <RelativeLayout
+                        android:id="@+id/relative_menu"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="@color/backgroundGray"
+                        android:layout_marginTop="30dp"
+                        android:layout_below="@id/hr_view">
+
+                        <ExpandableListView
+                            android:id="@+id/menu_expandable"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerHorizontal="true"
+                            android:divider="@null"
+                            android:background="@color/backgroundGray"/>
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/logout_imageview"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:clickable="true"
+                        android:src="@drawable/logout"
+                        android:layout_below="@id/hr_view"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="600dp"
+                        android:background="@color/backgroundGray"/>
+                </RelativeLayout>
+            </ScrollView>
+        </com.mxn.soul.flowingdrawer_core.FlowingMenuLayout>
+    </com.mxn.soul.flowingdrawer_core.FlowingDrawer>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

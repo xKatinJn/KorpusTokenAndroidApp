@@ -22,6 +22,7 @@ public class KorpusTokenAPI {
 
     private static final String QUESTIONNAIRE_SELF = "questionnaire_self";
     private static final String QUESTIONNAIRE_TEAM = "questionnaire_team";
+    private static final String GET_STATUS = "get_status";
 
     public static final List<String> PARAMS = Arrays.asList(
             "EMAIL", "LOGIN", "TG_NICKNAME",
@@ -55,5 +56,9 @@ public class KorpusTokenAPI {
 
     public String QuestionnaireTeam() {
         return BASE_URL+QUESTIONNAIRE_PATH+QUESTIONNAIRE_TEAM;
+    }
+
+    public String GetStatus() {
+        return BASE_URL+QUESTIONNAIRE_PATH+GET_STATUS;
     }
 }

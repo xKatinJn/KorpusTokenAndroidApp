@@ -107,6 +107,7 @@ public class Questionnaire_self_method extends AsyncTask<String, Void, String> {
                             question_container.addView(editText);
                             question_container.addView(divider_1);
                         }
+                        activity.findViewById(R.id.questionnaire_confirm_button).setVisibility(View.VISIBLE);
                     }
                 } catch (Exception e) {
                     Log.d("QSM", " GET ERR: " + response);

@@ -8,6 +8,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.example.korpustokenandroidappnongit.MainActivity;
 import com.example.korpustokenandroidappnongit.R;
 import com.example.korpustokenandroidappnongit.apijsontranslator.User;
@@ -62,6 +64,7 @@ public class Get_user_method extends AsyncTask<String, Void, String> {
             if (this.user.message.equals("Access denied")) {
                 UsefulScripts.MakeToastError(this.activity, "Ошибка доступа. Не удалось загрузить информацию о пользователе", "#FF0000", true);
             } else {
+                Log.d("GET_USER", response);
                 SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.activity);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 if (this.params.get(0).equals("ALL")) {
@@ -102,9 +105,13 @@ public class Get_user_method extends AsyncTask<String, Void, String> {
                     TextView name_surname = (TextView) this.activity.findViewById(R.id.namesurname_textview);
                     login.setText(sharedPreferences.getString("LOGIN", "USER_LOGIN").toUpperCase());
                     name_surname.setText(sharedPreferences.getString("NAME", "USER_NAME") + " " + sharedPreferences.getString("SURNAME", "USER_SURNAME"));
+                    SwipeRefreshLayout refreshLayout = this.activity.findViewById(R.id.refresher);
+                    refreshLayout.setRefreshing(false);
                 }
             }
         }catch (Exception e){
+            SwipeRefreshLayout refreshLayout = this.activity.findViewById(R.id.refresher);
+            refreshLayout.setRefreshing(false);
             UsefulScripts.MakeToastError(this.activity, "Ошибка на серверной части. Пожалуйста, сообщите о проблеме разработчику", "#FF0000", true);
             Log.e("USER_GET_METHOD", e.toString());
         }
